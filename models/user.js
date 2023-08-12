@@ -12,10 +12,6 @@ class User extends Sequelize.Model {
                 type: Sequelize.STRING(100),
                 allowNull: false,
             },
-            userPosition: {
-                type: Sequelize.ENUM('caller', 'receiver'),
-                allowNull: false,
-            },
             socketId: {
                 type: Sequelize.STRING,
                 allowNull: true,
@@ -33,7 +29,7 @@ class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasOne(db.UserState, { foreignKey: 'userId' });
+        // db.User.hasOne(db.UserState, { foreignKey: 'userId' });
     }
 }
 

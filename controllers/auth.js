@@ -1,18 +1,16 @@
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 exports.userJoin = async (req, res) => {
-    const { userName, userPassword, userPosition } = req.body;
+    const { userName, userPassword } = req.body;
     try {
         const hash = await bcrypt.hash(userPassword, 12);
         await User.create({
             userName,
             userPassword: hash,
-            userPosition
         });
-        return res.json('회원가입 성공!');
+        return res.redirect('/index');
     } catch (error) {
         console.error(error);
     }
@@ -30,16 +28,9 @@ exports.userLogin = async (req, res, next) => {
             if (loginError) {
                 console.error(loginError);
             }
-            const token = jwt.sign({
-                userName: user.userName,
-                userPosition: user.userPosition,
-            }, process.env.JWT_SECRET);
 
-            return res.json({
-                success: true,
-                message: '로그인에 성공하였습니다.',
-                token
-            });
+            return res.redirect('/index');
         });
     })(req, res, next);
 }
+

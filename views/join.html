@@ -2,11 +2,10 @@
 
 {% block content %}
 <div class="container-auth">
-    <form action="/auth/login" method="post">
+    <form action="/auth/join" method="post">
         <input type="text" name="userName" placeholder="아이디를 입력하세요.">
         <input type="password" name="userPassword" placeholder="비밀번호를 입력하세요.">
-        <button type="submit">접속</button>
-        <a href="/join">계정생성</a>
+        <button type="submit">생성</button>
     </form>
 </div>
 {% endblock %}
