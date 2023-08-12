@@ -1,0 +1,28 @@
+private void sendCallSignal(String receiverName) {
+    try {
+        JSONObject data = new JSONObject();
+        data.put("receiver", receiverName);
+
+        socket.emit("callRequest", data);
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+}
+
+// 소켓 이벤트 수신
+socket.on("callResponse", new Emitter.Listener() {
+    @Override
+    public void call(Object... args) {
+        JSONObject response = (JSONObject) args[0];
+        try {
+            boolean accepted = response.getBoolean("accepted");
+            if (accepted) {
+                // 수신자가 화상통화를 수락한 경우, 화상통화 화면 전환 등의 처리 수행
+            } else {
+                // 수신자가 화상통화를 거절한 경우 등의 처리 수행
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+});
